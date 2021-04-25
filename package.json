@@ -4,19 +4,25 @@
   "description": "backend todolist",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./server.js",
+    "start:prod": "SET NODE_ENV=production&&nodemon ./server.js",
+    "start:dev": "nodemon ./server"
   },
   "author": "Yarol Abraham",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "cookies-parser": "^1.2.0",
+    "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.2",
+    "express-rate-limit": "^5.2.6",
+    "helmet": "^4.5.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.5",
     "multer": "^1.4.2",
-    "sharp": "^0.28.1"
+    "sharp": "^0.28.1",
+    "xss-clean": "^0.1.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
