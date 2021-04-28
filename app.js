@@ -5,7 +5,9 @@ const expressRateLimit = require('express-rate-limit');
 const xss = require('xss-clean');
 const cookieParser = require('cookie-parser');
 const globalErros = require('./controllers/errorController');
-const appError = require('./utils/appError');
+const AppError = require('./utils/appError');
+
+const userRouter = require('./routes/userRouter');
 
 const app = express();
 //Security Headers
@@ -27,10 +29,10 @@ app.use( expressMongoSanatize() );
 //xss
 app.use( xss() );
 //routes
-
+app.use( '/api/v1/user', userRouter );
 //capture error url
 app.use('*', (req, res, next)=>{
-    next(appError(`can't find ${req.originalUrl} on this server`, 404) );
+    next(new AppError(`can't find ${req.originalUrl} on this server`, 404) );
 });
 //global errores
 app.use(globalErros);
