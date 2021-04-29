@@ -46,23 +46,23 @@ userSchema.pre('save', async function(next) {
     next();
 });
 
-// userSchema.pre('save', async function(next){
-//     if( !this.isModified('password') || this.isNew() ) return next();
-//     this.passwordChangedAt = Date.now() - 1000;
-//     next();
-// });
+userSchema.pre('save', async function(next){
+    if( !this.isModified('password') || this.isNew ) return next();
+    this.passwordChangedAt = Date.now() - 1000;
+    next();
+});
 
 userSchema.methods.correctPassword = async function(candidatePassword, userPassword) {
     return await bcryptjs.compare(candidatePassword, userPassword);
 };
 
-// userSchema.methods.changedPasswordAfter = function (jwtTimeStamp) {
-//     if(this.passwordChangedAt){
-
-//     }
-// };
-
-
+userSchema.methods.changedPasswordAfter = function (jwtTimeStamp) {
+    if(this.passwordChangedAt){
+        const changedTimestamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10 );
+        return jwtTimeStamp < changedTimestamp;
+    };
+    return false;
+};
 
 //export
 const User = mongoose.model("User", userSchema);

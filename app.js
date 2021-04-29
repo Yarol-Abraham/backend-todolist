@@ -6,8 +6,9 @@ const xss = require('xss-clean');
 const cookieParser = require('cookie-parser');
 const globalErros = require('./controllers/errorController');
 const AppError = require('./utils/appError');
-
+//routes
 const userRouter = require('./routes/userRouter');
+const todoRouter = require('./routes/todoRouter');
 
 const app = express();
 //Security Headers
@@ -30,6 +31,7 @@ app.use( expressMongoSanatize() );
 app.use( xss() );
 //routes
 app.use( '/api/v1/user', userRouter );
+app.use( '/api/v1/todo', todoRouter );
 //capture error url
 app.use('*', (req, res, next)=>{
     next(new AppError(`can't find ${req.originalUrl} on this server`, 404) );
