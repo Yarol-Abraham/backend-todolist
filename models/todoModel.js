@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
-
 const todoSchema = new mongoose.Schema(
     {
         name:{
@@ -8,6 +7,7 @@ const todoSchema = new mongoose.Schema(
             trim: true,
             required: [true, 'Please provide a name' ]
         },
+
         state: {
             type: String,
             required: [true, 'Please provide a state' ],
@@ -19,10 +19,17 @@ const todoSchema = new mongoose.Schema(
             type: Boolean,
             default: true
         },
+
         user: {
             type: mongoose.Types.ObjectId,
             ref: 'User'
         },
+        
+        createAt: {
+            type: Date,
+            default: Date.now
+        },
+
         slug: String 
     }
 );

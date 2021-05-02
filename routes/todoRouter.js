@@ -8,7 +8,8 @@ router.use( authController.protect );
 
 router
     .route('/')
-    .post( todoController.createTodo );
+    .post( todoController.createTodo )
+    .get(  todoController.getAllTodo );
 
 router
     .route('/:slug')

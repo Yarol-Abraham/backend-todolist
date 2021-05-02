@@ -1,5 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
+const path = require('path');
+const cors = require('cors');
 const expressMongoSanatize = require('express-mongo-sanitize');
 const expressRateLimit = require('express-rate-limit');
 const xss = require('xss-clean');
@@ -11,6 +13,13 @@ const userRouter = require('./routes/userRouter');
 const todoRouter = require('./routes/todoRouter');
 
 const app = express();
+//folder public
+app.use(express.static(path.join(__dirname, 'public')));
+//cors
+const opCors = {
+    origin: process.env.API_FRONTD
+}
+app.use(cors(opCors) );
 //Security Headers
 app.use( helmet() );
 

@@ -8,6 +8,19 @@ const handleValidateErrorsFields= (errors)=>{
     message = message.trim();
     return new AppError(message, 400);
 };
+const handleDuplicateError = (error)=>{
+    const { keyValue: { name } } = error;
+    const message = `Duplicate field value: ${name}. Please use another value!`;
+    return new AppError(message, 400);
+};
+
+const handleValidationJswErros = () =>{
+    return new AppError("Invalid token, Please log in again", 401);
+};
+
+const handleValidationJswExpired = () =>{
+    return new AppError("Your token has expired!, Please log in again", 401);
+};
 
 const sendErrorDev = (err, res)=>{
     res.status(err.statusCode).send({
@@ -41,7 +54,11 @@ module.exports = (err, req, res, next)=>{
     else if(process.env.NODE_ENV === 'production'){
         let error = { ...err };
         error.message = err.message;
+        console.log(error);
         if(error.errors) error = handleValidateErrorsFields(error.errors);
+        if(error.code === 11000) error = handleDuplicateError(error);
+        if(error.name === "JsonWebTokenError") error = handleValidationJswErros();
+        if(error.name === "TokenExpiredError") error = handleValidationJswExpired();
         sendErroProd(error, res);
     };
 };
