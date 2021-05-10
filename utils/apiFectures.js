@@ -8,7 +8,7 @@ exports.getAllTodoOptions = (options, user)=>{
 
 exports.sortSelect = (sort)=>{
     let sortBy = "";
-    if(sort === 'createAt'){ 
+    if(sort === 'createAt' || sort === "-createAt"){ 
         sortBy = sort ;
     }else{ sortBy = '-createAt' };
     return sortBy;

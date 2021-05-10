@@ -11,14 +11,14 @@ const signToken = (_id)=>{
 
 const sendToken = (user, res, statusCode)=>{
   const token =  signToken(user._id);
-  const cookiesOptions = {
-    expires: new Date( Date.now() + process.env.JW_COOKIE_EXPIRES * 24 * 60 * 60 * 1000 ),
-    httpOnly: true
-  };
+  // const cookiesOptions = {
+  //   expires: new Date( Date.now() + process.env.JW_COOKIE_EXPIRES * 24 * 60 * 60 * 1000 ),
+  //   httpOnly: true
+  // };
 
-  if(process.env.NODE_ENV === 'production') cookiesOptions.secure = true;
+  // if(process.env.NODE_ENV === 'production') cookiesOptions.secure = true;
   user.password = undefined;
-  res.cookie('jwt', token, cookiesOptions);
+ // res.cookie('jwt', token, cookiesOptions);
   res.status(statusCode).json({
     status: 'success',
     token,
@@ -44,7 +44,7 @@ exports.login = catchAsync(async (req, res, next)=>{
   );
   const verifyPassword = await user.correctPassword(password, user.password);
   if(!verifyPassword) return next(
-    new AppError('Please provide your name and password', 400)
+    new AppError('wrong name or password', 400)
   );
   sendToken(user, res, 200);
 });
@@ -64,9 +64,7 @@ exports.protect = catchAsync(async(req, res, next)=>{
     req.headers.authorization.startsWith('Bearer')
     ){
       token = req.headers.authorization.split(' ')[1];
-  }else{
-    token = req.cookie.jwt;
-  };
+  }
   const decoded = await jwt.verify(token, process.env.JWT_SECRET);
   const currentUser = await User.findById(decoded._id);
   if(!currentUser) return next(

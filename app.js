@@ -12,6 +12,10 @@ const AppError = require('./utils/appError');
 const userRouter = require('./routes/userRouter');
 const todoRouter = require('./routes/todoRouter');
 
+//enveroment global
+const dotenv = require('dotenv');
+dotenv.config({ path: 'config.env' });
+
 const app = express();
 //folder public
 app.use(express.static(path.join(__dirname, 'public')));
@@ -25,7 +29,7 @@ app.use( helmet() );
 
 //limits request
 const limiter = expressRateLimit({
-    max: 100,
+    max: 1000,
     windowMs: 60 * 60 * 1000,
     message: "Too many requests from this IP, please try again in an hour!"
 });

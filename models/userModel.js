@@ -1,5 +1,10 @@
+//enveroment global
+const dotenv = require('dotenv');
+dotenv.config({ path: 'config.env' });
+
 const mongoose = require('mongoose');
 const bcryptjs = require('bcryptjs');
+
 
 const userSchema = new mongoose.Schema(
     {
@@ -13,9 +18,13 @@ const userSchema = new mongoose.Schema(
         photo: {
             type: String,
             trim: true,
-            default: 'default.js'
+            default: 'default.jpg'
         },
-
+        urlPhoto: {
+            type: String,
+            trim: true,
+            default: process.env.URL_USER_IMAGE
+        },
         password: {
             type: String,
             trim: true,
