@@ -59,6 +59,17 @@ exports.deleteTodo = catchAsync(async(req, res, next)=>{
     sendResponse(todo, res, 200);
 });
 
+exports.deleteAllTodo = catchAsync( async(req, res, next)=>{
+    await Todo.deleteMany({
+        user: req.user._id,
+        state: "completed"
+     });
+     res.status(200).json({
+         status: 'success',
+         message: "all records have been deleted"
+     })
+});
+
 exports.updateTodo = catchAsync(async(req, res, next)=>{
     const filterBody = apiFectures.filterData(req.body, 'name', 'state', 'active');
     const todo = await Todo.findOneAndUpdate(

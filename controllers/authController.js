@@ -11,14 +11,7 @@ const signToken = (_id)=>{
 
 const sendToken = (user, res, statusCode)=>{
   const token =  signToken(user._id);
-  // const cookiesOptions = {
-  //   expires: new Date( Date.now() + process.env.JW_COOKIE_EXPIRES * 24 * 60 * 60 * 1000 ),
-  //   httpOnly: true
-  // };
-
-  // if(process.env.NODE_ENV === 'production') cookiesOptions.secure = true;
   user.password = undefined;
- // res.cookie('jwt', token, cookiesOptions);
   res.status(statusCode).json({
     status: 'success',
     token,

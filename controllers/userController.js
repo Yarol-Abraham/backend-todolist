@@ -5,7 +5,6 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Factory = require('./handleFactory');
 const apiFectures = require('../utils/apiFectures');
-
 const multerSotarge = multer.memoryStorage();
 
 const multerFilter = (req, file, cb)=>{
@@ -13,8 +12,8 @@ const multerFilter = (req, file, cb)=>{
         cb(null, true);
     }else{
         cb(new AppError("Not an image! Please upload only image", 400), false);
-    }
-}
+    };
+};
 
 const upload = multer({
     storage: multerSotarge,
@@ -54,4 +53,5 @@ exports.updateMe = catchAsync(async(req, res, next)=>{
         }
     });
 });
+
 
