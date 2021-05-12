@@ -54,7 +54,6 @@ module.exports = (err, req, res, next)=>{
     else if(process.env.NODE_ENV === 'production'){
         let error = { ...err };
         error.message = err.message;
-        console.log(error);
         if(error.errors) error = handleValidateErrorsFields(error.errors);
         if(error.code === 11000) error = handleDuplicateError(error);
         if(error.name === "JsonWebTokenError") error = handleValidationJswErros();
