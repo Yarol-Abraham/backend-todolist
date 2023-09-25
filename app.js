@@ -20,10 +20,11 @@ const app = express();
 //folder public
 app.use(express.static(path.join(__dirname, 'public')));
 //cors
-const opCors = {
-    origin: process.env.API_FRONTD
-}
-app.use(cors(opCors) );
+// const opCors = {
+//     origin: process.env.API_FRONTD
+// }
+// opCors
+app.use(cors() );
 //Security Headers
 app.use( helmet() );
 

@@ -18,9 +18,9 @@ const DB = process.env.DB_MONGO
 mongoose.connect(DB, 
 {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
+    useUnifiedTopology: true
+    // useCreateIndex: true,
+   // useFindAndModify: false
     
 }).then(()=> console.log('db connect success') );
 
