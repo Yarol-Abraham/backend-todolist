@@ -24,7 +24,7 @@ const opCors = {
     origin: process.env.API_FRONTD
 }
 // opCors
-app.use(cors(opCors) );
+app.use(cors() );
 //Security Headers
 app.use( helmet() );
 
