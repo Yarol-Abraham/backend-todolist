@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./server.js",
     "start:prod": "SET NODE_ENV=production&&nodemon ./server.js",
+    "starr:prodl": "NODE_ENV=production nodemon ./server.js",
     "start:dev": "nodemon ./server"
   },
   "author": "Yarol Abraham",
